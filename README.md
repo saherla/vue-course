@@ -1,3 +1,3 @@
 # Vue Course
 
-udemy.com/course/vuejs-fh/
+https://www.udemy.com/course/vuejs-fh/
