@@ -1,4 +1,5 @@
 # journal
+## Vuex Configuration
 
 ## Project setup
 ```
