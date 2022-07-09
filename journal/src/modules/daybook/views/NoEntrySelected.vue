@@ -1,7 +1,7 @@
 <template>
   <div class="d-flex justify-content-center">
     <h1 class="align-self-center">Missing selected</h1>
-    <Fab />
+    <Fab @on:click="createNewEntry" />
   </div>
 </template>
 
@@ -11,6 +11,11 @@ import { defineAsyncComponent } from "vue";
 export default {
   components: {
     Fab: defineAsyncComponent(() => import("../components/Fab"))
+  },
+  methods: {
+    createNewEntry() {
+      this.$router.push({ name: "entry", params: { id: "new" } });
+    }
   }
 };
 </script>
