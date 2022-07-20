@@ -41,6 +41,12 @@ const routes = [
     name: "pokemon-id",
     component: () =>
       import(/* webpackChunkName: "pokemon-id" */ "../views/PokemonView.vue")
+  },
+  {
+    path: "/todo",
+    name: "todo",
+    component: () =>
+      import(/* webpackChunkName: "todo" */ "../views/TodoVuexView.vue")
   }
 ];
 
