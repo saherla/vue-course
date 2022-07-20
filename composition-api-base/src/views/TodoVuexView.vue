@@ -33,19 +33,53 @@
       </li>
     </ul>
   </div>
+
+  <button @click="isOpen = true">Create Todo</button>
+
+  <modal v-if="isOpen" @on:close="isOpen = false">
+    <template v-slot:header>
+      <h1>New Task</h1>
+    </template>
+    <template v-slot:body>
+      <form
+        @submit.prevent="
+          createTodo(todoText);
+          isOpen = false;
+        "
+      >
+        <input
+          v-model="todoText"
+          type="text"
+          placeholder="New task"
+          autofocus
+        />
+        <br />
+        <br />
+        <button type="submit">Create Task</button>
+      </form>
+    </template>
+  </modal>
 </template>
 
 <script>
+import { ref } from "vue";
 import useTodos from "@/composables/useTodos";
+import Modal from "@/components/Modal.vue";
 
 export default {
+  components: { Modal },
   setup() {
-    const { currentTab, getTodosByTab, toggleTodo } = useTodos();
+    const { currentTab, todoText, getTodosByTab, toggleTodo, createTodo } =
+      useTodos();
 
     return {
       currentTab,
+      todoText,
       getTodosByTab,
-      toggleTodo
+      toggleTodo,
+      createTodo,
+
+      isOpen: ref(false)
     };
   }
 };
