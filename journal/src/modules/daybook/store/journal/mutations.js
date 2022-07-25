@@ -18,3 +18,7 @@ export const deleteEntry = (state, id) => {
   const idx = state.entries.findIndex((entry) => entry.id === id);
   state.entries.splice(idx, 1);
 };
+
+export const clearEntries = (state) => {
+  state.entries = [];
+};

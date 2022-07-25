@@ -20,7 +20,13 @@ const useAuth = () => {
     createUser,
     checkAuthentication,
 
-    authStatus: computed(() => store.getters["auth/currentStatus"])
+    authStatus: computed(() => store.getters["auth/currentStatus"]),
+    username: computed(() => store.getters["auth/username"]),
+
+    logout: () => {
+      store.commit("auth/logout");
+      store.commit("journal/clearEntries");
+    }
   };
 };
 
