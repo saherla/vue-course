@@ -15,7 +15,7 @@
       <span class="focus-input100" data-placeholder="&#xe82a;"></span>
     </div>
 
-    <div class="wrap-input100 validate-input" data-validate="Enter username">
+    <div class="wrap-input100 validate-input" data-validate="Enter email">
       <input
         v-model="userForm.email"
         class="input100"
@@ -49,22 +49,28 @@
 </template>
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import useAuth from "../composables/useAuth";
+
+import Swal from "sweetalert2";
 
 export default {
   setup() {
+    const router = useRouter();
     const { createUser } = useAuth();
     const userForm = ref({
-      name: "",
-      email: "",
-      password: ""
+      name: "Salvador",
+      email: "salvador@test.com",
+      password: "testing"
     });
 
     return {
       userForm,
       onSubmit: async () => {
         const { ok, message } = await createUser(userForm.value);
-        console.log(ok, message);
+
+        if (ok) router.push({ name: "no-entry" });
+        else Swal.fire("Error", message, "error");
       }
     };
   }

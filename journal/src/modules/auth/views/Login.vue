@@ -1,13 +1,23 @@
 <template>
   <span class="login100-form-title p-b-41"> Login </span>
-  <form class="login100-form validate-form p-b-33 p-t-5">
+  <form
+    class="login100-form validate-form p-b-33 p-t-5"
+    @submit.prevent="onSubmit"
+  >
     <div class="wrap-input100 validate-input" data-validate="Enter email">
-      <input class="input100" type="text" placeholder="Email" required />
+      <input
+        v-model="userForm.email"
+        class="input100"
+        type="email"
+        placeholder="Email"
+        required
+      />
       <span class="focus-input100" data-placeholder="&#xe818;"></span>
     </div>
 
     <div class="wrap-input100 validate-input" data-validate="Enter password">
       <input
+        v-model="userForm.password"
         class="input100"
         type="password"
         placeholder="Password"
@@ -18,7 +28,7 @@
     </div>
 
     <div class="container-login100-form-btn m-t-32">
-      <button class="login100-form-btn">Login</button>
+      <button type="submit" class="login100-form-btn">Login</button>
     </div>
 
     <div class="container-login100-form-btn m-t-32">
@@ -27,5 +37,30 @@
   </form>
 </template>
 <script>
-export default {};
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import useAuth from "../composables/useAuth";
+
+import Swal from "sweetalert2";
+
+export default {
+  setup() {
+    const router = useRouter();
+    const { loginUser } = useAuth();
+    const userForm = ref({
+      email: "salvador@test.com",
+      password: "testing"
+    });
+
+    return {
+      userForm,
+      onSubmit: async () => {
+        const { ok, message } = await loginUser(userForm.value);
+
+        if (ok) router.push({ name: "no-entry" });
+        else Swal.fire("Error", message, "error");
+      }
+    };
+  }
+};
 </script>
